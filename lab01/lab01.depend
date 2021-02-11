@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1613055890 source:/home/izhar/Documents/University/OOP/lab01/main.cpp
+	<iostream>
+	<string>
+	<fstream>
+
