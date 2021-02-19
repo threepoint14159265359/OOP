@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1613774040 source:/home/izhar/Documents/University/OOP/lab02/main.cpp
+	<iostream>
+	"Point.h"
+	"cirlce.h"
+
+1613772127 source:/home/izhar/Documents/University/OOP/lab02/src/Point.cpp
+	"Point.h"
+	<cmath>
+
+1613772264 /home/izhar/Documents/University/OOP/lab02/include/Point.h
+	<iostream>
+
+1613774047 source:/home/izhar/Documents/University/OOP/lab02/src/cirlce.cpp
+	"cirlce.h"
+
+1613771944 /home/izhar/Documents/University/OOP/lab02/include/cirlce.h
+	"Point.h"
+	<ostream>
+
