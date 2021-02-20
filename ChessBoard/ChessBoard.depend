@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1613856221 source:/home/izhar/Documents/University/OOP/ChessBoard/main.cpp
+	<iostream>
+	"ChessMatrix.h"
+
+1613854960 source:/home/izhar/Documents/University/OOP/ChessBoard/src/ChessMatrix.cpp
+	"ChessMatrix.h"
+
+1613854200 /home/izhar/Documents/University/OOP/ChessBoard/include/ChessMatrix.h
+	<vector>
+	<fstream>
+	<string>
+	<math.h>
+
