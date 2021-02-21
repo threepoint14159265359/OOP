@@ -18,3 +18,22 @@
 	"Point.h"
 	<ostream>
 
+1613849726 source:/home/izhar/Documents/University/OOP/lab2/main.cpp
+	<iostream>
+	"Point.h"
+	"cirlce.h"
+
+1613772264 /home/izhar/Documents/University/OOP/lab2/include/Point.h
+	<iostream>
+
+1613771944 /home/izhar/Documents/University/OOP/lab2/include/cirlce.h
+	"Point.h"
+	<ostream>
+
+1613774047 source:/home/izhar/Documents/University/OOP/lab2/src/cirlce.cpp
+	"cirlce.h"
+
+1613849797 source:/home/izhar/Documents/University/OOP/lab2/src/Point.cpp
+	"Point.h"
+	<cmath>
+

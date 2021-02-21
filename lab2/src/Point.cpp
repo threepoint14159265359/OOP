@@ -46,4 +46,5 @@ Point Point::operator/(const int &d) const{
 //overloading << operator so that we could use std::cout << Point; OR even file << Point.
 std::ostream &operator<<(std::ostream &stream, Point &p){
     stream << "("<< p.getX() << ", " << p.getY() << ")";
+    return stream;
 }

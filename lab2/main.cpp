@@ -9,12 +9,13 @@ int main()
 {
     //single declaration
     Point p1;
+    Point p2;
     Circle c1;
     std::cout << "p1.x = " << p1.getX() << " " << "p1.y = " << p1.getY() << std::endl;
     std::cout << "center = (" << c1.getCenter().getX() << " , "  << c1.getCenter().getY() << ")" << " " << "c1.y = " << c1.getRadius() << std::endl; //why don't we overload the ostream "<<" operator for both circle and point??!
 
 
-    std::cout << p1 << std::endl; //this way is super easy
+    std::cout << p1 << p2 << std::endl; //this way is super easy
     std::cout << c1 << std::endl;
 
 
