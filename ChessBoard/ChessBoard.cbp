@@ -36,7 +36,7 @@
 		</Compiler>
 		<Unit filename="include/ChessMatrix.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="matrix1.txt" />
+		<Unit filename="matrix.txt" />
 		<Unit filename="src/ChessMatrix.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
