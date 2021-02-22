@@ -77,7 +77,7 @@ ChessMatrix::ChessMatrix(const std::string &fileName){
 /*********************************************************************************************************8
     This size indicates the actual size of the matrix as in whether it's a 2-by-2 or a n-by-n size.
 ************************************************************************************************************/
-int ChessMatrix::getSize(){
+int ChessMatrix::getSize()const{
     return m_size;
 }
 
@@ -128,9 +128,31 @@ double ChessMatrix::calcSizeFromLength(unsigned int size){
     -what if we want to find n???
     -the n should always be integer cause it's the position of the given number in the sequence
 *************************************************************************************************************/
-bool ChessMatrix::isChessTypeMatrix(){
+bool ChessMatrix::isChessTypeMatrix()const{
     double n = sqrt((double)m_vector.size()/(double)2);
     return m_size > 1 && n == (int) n; ///checks whether the number is an integer <==> n =? floor(n)
+}
+
+
+
+/******************************************************************************************88
+    -Matrix Addition
+    -Only adds the matrix whose sizes are the same and both are Chess Type Matrices
+**********************************************************/
+ChessMatrix ChessMatrix::add(const ChessMatrix& a,const ChessMatrix& b){
+    if(not(a.isChessTypeMatrix()) || not(b.isChessTypeMatrix())){
+        throw ERRORS::NOT_A_CHESS_TYPE;
+    }
+
+    if(a.getSize() != b.getSize()){
+        throw ERRORS::NOT_EQUAL_SIZE;
+    }
+
+    ChessMatrix sum(a); //throws NOT_A_CHESS_TYPE
+    for (int i=0;i<a.m_vector.size();i++){
+        sum.m_vector[i] += b.m_vector[i];
+    }
+    return sum;
 }
 
 

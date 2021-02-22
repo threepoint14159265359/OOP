@@ -12,18 +12,9 @@ int main()
     ChessMatrix m12(12);
     ChessMatrix m14(14);
 
-    try{
-        ChessMatrix m(-100);
-    }catch(ChessMatrix::ERRORS error){
-        cout << "ILLEGAL ERROR";
-    }
 
-    cout << m2 << endl;
 
-    cout << m4 << endl;
-    cout << m6 << endl;
-    cout << m8 << endl;
-    cout << m10 << endl;
+    cout << ChessMatrix::add(m6, m6) << endl;
     //cout << m12 << endl;
     //cout << m14 << endl;
 

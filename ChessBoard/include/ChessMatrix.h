@@ -10,7 +10,7 @@ class ChessMatrix
 {
 public:
 
-    enum ERRORS{CORRUPT_FILE, INDEX_OUT_OF_BOUND, NOT_A_CHESS_TYPE, ILLIGAL_MATRIX};
+    enum ERRORS{CORRUPT_FILE, INDEX_OUT_OF_BOUND, NOT_A_CHESS_TYPE, ILLIGAL_MATRIX, NOT_EQUAL_SIZE};
 
 
     //constructors
@@ -21,9 +21,9 @@ public:
 
 
     int getElemAt(int i, int j)const; //getting element at index i and j
-    int getSize();
-    ChessMatrix multiply(const ChessMatrix& iMatrix);
-    ChessMatrix Add(const ChessMatrix& iMatrix);
+    int getSize()const;
+    static ChessMatrix multiply(const ChessMatrix& A, const ChessMatrix& B);
+    static ChessMatrix add(const ChessMatrix& A, const ChessMatrix& B);
 
 
     //operator overloading
@@ -34,7 +34,7 @@ public:
 private:
     int m_size;
     std::vector<int> m_vector;
-    bool isChessTypeMatrix();
+    bool isChessTypeMatrix()const;
     int ind(int i, int j)const ;
     double calcSizeFromLength(unsigned int size);
 };
