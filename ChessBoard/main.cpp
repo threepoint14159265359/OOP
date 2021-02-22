@@ -4,27 +4,28 @@ using namespace std;
 
 int main()
 {
-/**
-    ChessMatrix m("matrix.txt");
-    cout << m.getElemAt(0, 0) << endl;
-    cout << m.getElemAt(0, 1) << endl;
-    cout << m.getElemAt(0, 2) << endl;
-    cout << m.getElemAt(0, 3) << endl;
-    cout << m.getSize();
-    cout << "\n\n\n";
-**/
+    ChessMatrix m2(2);
+    ChessMatrix m4(4);
+    ChessMatrix m6("matrix.txt");
+    ChessMatrix m8;
+    ChessMatrix m10(10);
+    ChessMatrix m12(12);
+    ChessMatrix m14(14);
 
-    vector<int> vect;
-    vect.push_back(1);
-    vect.push_back(1);
-    vect.push_back(1);
-    vect.push_back(1);
-    vect.push_back(1);
-    vect.push_back(1);
-    vect.push_back(1);
+    try{
+        ChessMatrix m(-100);
+    }catch(ChessMatrix::ERRORS error){
+        cout << "ILLEGAL ERROR";
+    }
 
-    ChessMatrix m1(vect);
-    cout << m1.getSize() << endl;
+    cout << m2 << endl;
+
+    cout << m4 << endl;
+    cout << m6 << endl;
+    cout << m8 << endl;
+    cout << m10 << endl;
+    //cout << m12 << endl;
+    //cout << m14 << endl;
 
     return 0;
 }
