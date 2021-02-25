@@ -4,19 +4,15 @@ using namespace std;
 
 int main()
 {
-    ChessMatrix m2(2);
-    ChessMatrix m4(4);
-    ChessMatrix m6("matrix.txt");
-    ChessMatrix m8;
-    ChessMatrix m10(10);
-    ChessMatrix m12(12);
-    ChessMatrix m14(14);
+    ChessMatrix m2("matrix.txt");
+    //ChessMatrix m1("matrix.txt");
+    //ChessMatrix m3(-2);
+    //ChessMatrix m4(2);
+    cout << m2.getElemAt(0,1) << endl;
+    cout << m2+m2 << endl;
+    cout << m2*m2 << endl;
 
 
-
-    cout << ChessMatrix::add(m6, m6) << endl;
-    //cout << m12 << endl;
-    //cout << m14 << endl;
 
     return 0;
 }

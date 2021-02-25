@@ -1,30 +1,26 @@
 #include "ChessMatrix.h"
-#include <iostream>
 
-/*OK*/
-/*******************************************************************************************
-    By default the vector size is equal to a standard chess board which contains 32 colored squares.
-***************************************************************************************************/
+
+//default
 ChessMatrix::ChessMatrix(){
-    this->m_size = 8;
-    int elem = 1;
-    m_vector={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    m_size = 0;
 }
-/*OK*/
-/*********************************************************************************************************
-    - Given a size we can auto generate a chessBoard indicating the non-zero digits by 1
-    - size can only by 2 4 6 8 10 12 ... and so on
-    - the element these will store would be 2 8 18 32 50 ... and so on
-    - So, given size = 8, we would insert 32 elements which can be calculated by the formula given in the for loop conditional part
-**********************************************************************************************************/
+
+/*
+- Given a size we can auto generate a chessBoard indicating the non-zero digits by 1
+- size can only by 2-by-2 4-by-4, 6 8 10 12 ... and so on
+- the element these will store would be 2 8 18 32 50 ... and so on
+- So, given size = 8, we would insert 32 elements which can be calculated by the formula given as LengthOfVector
+*/
 ChessMatrix::ChessMatrix(int size){
-    if(size < 1){
-        throw ERRORS::ILLIGAL_MATRIX;
+    if(size < 2){ //a chess with size smaller than 2 can not be justified.
+        throw ERRORS::NOT_A_CHESS_TYPE;
     }
     this->m_size = size;
-    int num = 1;
-    for(int i = 0; i<ceil(2*((double)size/(double)2)*((double)size/(double)2)); i++){
-        m_vector.push_back(num);
+    unsigned int LengthOfVector = ceil(2*((double)size/(double)2)*((double)size/(double)2)); // double casting
+    int element = 1;
+    for(unsigned int i = 0; i< LengthOfVector; i++){
+        m_vector.push_back(element);
     }
     if(not(isChessTypeMatrix())){
         m_size = 0;
@@ -33,28 +29,13 @@ ChessMatrix::ChessMatrix(int size){
     }
 }
 
-/*OK*/
-/********************************************************************************************
-    Copy Constructor - Given a vector of integers as an input parameter
-***************************************************************************************************/
+//copy constructor
 ChessMatrix::ChessMatrix(const std::vector<int> &ivector){
-    this->m_size = calcSizeFromLength(ivector.size());
-    m_vector = ivector;
-    if(not(this->isChessTypeMatrix())){
-        m_size = 0;
-        m_vector.clear();
-        throw ERRORS::NOT_A_CHESS_TYPE;
-    }
-
+    setChessMatrix(ivector);
 }
 
 
-/*OK*/
-/**************************************************************************************
-    - Reading a file in the constructor
-    - we must check if the chess type is a matrix type. If it's not, we raise an exception
-    - So, we don't have to process the matrices that are not file CHESS TYPE
-****************************************************************************************************/
+//constructor with file
 ChessMatrix::ChessMatrix(const std::string &fileName){
     std::fstream f(fileName);
     if (f.fail()){
@@ -72,74 +53,83 @@ ChessMatrix::ChessMatrix(const std::string &fileName){
     }
 }
 
+void ChessMatrix::setChessMatrix(const std::vector<int> &ivector){
+    this->m_size = calcSizeFromLength(ivector.size());
+    m_vector = ivector; //copy the vector
+    if(not(this->isChessTypeMatrix())){ //check whether it's a chess type or not
+        m_size = 0;
+        m_vector.clear();
+        throw ERRORS::NOT_A_CHESS_TYPE;
+    }
+}
 
-/*OK*/
-/*********************************************************************************************************8
-    This size indicates the actual size of the matrix as in whether it's a 2-by-2 or a n-by-n size.
-************************************************************************************************************/
-int ChessMatrix::getSize()const{
+
+
+//size n of an n-by-n matrix
+unsigned int ChessMatrix::getSize()const{
     return m_size;
 }
 
 
 
-/*OK*/
-/************************************************************************************************
-    A private method which returns the index of the entry of transformed matrix - a 1-D vector.
-**************************************************************************************************/
+
+//finds the index of a given (ith row, jth column) entry in a single vector
 int ChessMatrix::ind(int i, int j)const{
     return (m_size/2) * i + floor(j/2);
 }
 
 
-/*OK*/
-/***********************************************************************************
-    - If we have an entry at row i and column j, we can access its indexed-Value
-    - If the given indexes does not contain the non-zero elements, we simply return zero
-    - in chess type matrix, the sum of the indexes of the non-zero entries is always even
-*********************************************************************************************/
-int ChessMatrix::getElemAt(int i, int j)const{
+
+
+
+//If we have an entry at row i and column j, we can access its indexed-Value
+//we just return non-zero element from the square
+int ChessMatrix::getElemAt(unsigned int i, unsigned int j)const{
     if(i >= m_size || i < 0 || j >= m_size || j < 0){
         throw ERRORS::INDEX_OUT_OF_BOUND;
     }
-    if((i+j) % 2 == 0){
+    if(nonZeroSquares(i, j)){
         return m_vector[ind(i, j)];
     }
     return 0;
 }
 
-/*OK*/
-/*****************************************************************************************************************
-    -given a 1-D vector, we can find the size of the chess type matrix
-    -chess type matrices are in the form 2*2, 4*4, 6*6, 8*8 and so on and so forth
-    -storing 2, 8, 18, 32 elements respectively. This sequence is of the form An = 2n^2
-    -So, if given the number of elements, An, we can calculate n, which is the position of that element in the sequence.
-    -Like n = 1 for 2, n = 2 for 8 and so on. We multiply it by 2 so that we can find the exact size of the chess matrix
-    -Like n = 2*1 for 2, n = 2*2 for 8 and so on.
-********************************************************************************************************************************/
+/*
+-given a 1-D vector, we can find the size n, (n-by-n), of the chess type matrix
+-chess type matrices are in the form 2*2, 4*4, 6*6, 8*8 and so on
+-they store 2, 8, 18, 32 elements respectively. We store them in a single vector (to represent a single colour). This sequence is of the form An = 2n^2
+-So, if given the number of elements, An (which is the length of the vector), we can calculate n.
+*/
 double ChessMatrix::calcSizeFromLength(unsigned int size){
     return 2 * sqrt(size/2);
 }
 
-/*OK*/
-/**********************************************************************************************************
-    -Check whether a given vector is chess type or not
-    -We know the formula for the nth term of the sequence 2 8 18 32 ... = 2n^2
-    -what if we want to find n???
-    -the n should always be integer cause it's the position of the given number in the sequence
-*************************************************************************************************************/
+
+/*
+-a chess type matrix is always n-by-n where n = even
+- 2 8 18 32 ... = 2n^2
+-what if we want to find n???
+-the n should always be integer cause it's the position of the given number in the sequence
+*/
 bool ChessMatrix::isChessTypeMatrix()const{
     double n = sqrt((double)m_vector.size()/(double)2);
-    return m_size > 1 && n == (int) n; ///checks whether the number is an integer <==> n =? floor(n)
+    return m_size > 1 && n == (int) n; //checks whether the number is an integer <==> n =? floor(n)
+}
+
+
+/*
+-given two indexes, check whether it corresponds to a non-zero number in the given matrix
+-if the non-zero digits (same colored squares) are stored in (1,1) , (1,3) , (1, 5) and so on, then there sum is always even
+**/
+bool ChessMatrix::nonZeroSquares(unsigned int i, unsigned int j){
+    return (i + j) % 2 == 0;
 }
 
 
 
-/******************************************************************************************88
-    -Matrix Addition
-    -Only adds the matrix whose sizes are the same and both are Chess Type Matrices
-**********************************************************/
-ChessMatrix ChessMatrix::add(const ChessMatrix& a,const ChessMatrix& b){
+//Matrix Addition
+//Only adds the matrix whose sizes are the same and both are Chess Type Matrices
+ChessMatrix ChessMatrix::add(const ChessMatrix& a, const ChessMatrix& b){
     if(not(a.isChessTypeMatrix()) || not(b.isChessTypeMatrix())){
         throw ERRORS::NOT_A_CHESS_TYPE;
     }
@@ -149,24 +139,51 @@ ChessMatrix ChessMatrix::add(const ChessMatrix& a,const ChessMatrix& b){
     }
 
     ChessMatrix sum(a); //throws NOT_A_CHESS_TYPE
-    for (int i=0;i<a.m_vector.size();i++){
+    for (unsigned int i=0;i<a.m_vector.size();i++){
         sum.m_vector[i] += b.m_vector[i];
     }
     return sum;
 }
 
+/*
+Standard matrix multiplication but only on Chess Type matrices
+- must be square matrices
+- must be n-by-n, where n is even
+*/
+ChessMatrix ChessMatrix::multiply(const ChessMatrix& a,const ChessMatrix& b)
+{
+    if(not(a.isChessTypeMatrix()) || not(b.isChessTypeMatrix())){
+        throw ERRORS::NOT_A_CHESS_TYPE;
+    }
+
+    if(a.getSize() != b.getSize()){
+        throw ERRORS::NOT_EQUAL_SIZE;
+    }
+    std::vector<int> result_vector;
+    for (unsigned int i=0;i<a.m_size;i++){
+        for (unsigned int j=0;j<b.m_size;j++){
+            int sum = 0;
+            if(nonZeroSquares(i, j)){
+                for(unsigned int k = 0; k < a.m_size; k++){
+                    sum += a.getElemAt(i, k) * b.getElemAt(k, j);
+                }
+                result_vector.push_back(sum);
+            }
+        }
+    }
+    ChessMatrix mul(result_vector);
+    return mul;
+}
 
 
-
-/**************************************************************************
-    Output Stream operator "<<" overload to make our lives easier
-*********************************************************************************************/
+//Some Operator Overloading
+//outPutStream(<<)
 std::ostream& operator<<(std::ostream& Stream,const ChessMatrix& iMatrix)
 {
     Stream << "\t\t" << iMatrix.m_size <<"x"<<iMatrix.m_size << ": "<<std::endl;
-    for (int i=0;i<iMatrix.m_size;i++)
+    for (unsigned int i=0;i<iMatrix.m_size;i++)
     {
-        for (int j=0;j<iMatrix.m_size;j++)
+        for (unsigned int j=0;j<iMatrix.m_size;j++)
         {
             Stream << "\t"  << iMatrix.getElemAt(i,j);
         }
@@ -175,5 +192,40 @@ std::ostream& operator<<(std::ostream& Stream,const ChessMatrix& iMatrix)
     return Stream;
 }
 
+
+//addition(+)
+ChessMatrix ChessMatrix::operator+(ChessMatrix& iMatrix){
+    std::vector<int> sum_vector; //an empty matrix
+    for(unsigned int i = 0; i<iMatrix.m_vector.size(); i++){
+        sum_vector.push_back(this->m_vector.at(i) + iMatrix.m_vector.at(i));
+    }
+    ChessMatrix sum(sum_vector);
+    return sum;
+}
+
+//multiplication(*)
+ChessMatrix ChessMatrix::operator*(ChessMatrix& iMatrix){
+    if(not(this->isChessTypeMatrix()) || not(iMatrix.isChessTypeMatrix())){
+        throw ERRORS::NOT_A_CHESS_TYPE;
+    }
+
+    if(this->getSize() != iMatrix.getSize()){
+        throw ERRORS::NOT_EQUAL_SIZE;
+    }
+    std::vector<int> result_vector;
+    for (unsigned int i=0;i<this->m_size;i++){
+        for (unsigned int j=0;j<this->m_size;j++){
+            int sum = 0;
+            if(nonZeroSquares(i, j)){
+                for(unsigned int k = 0; k < this->m_size; k++){
+                    sum += this->getElemAt(i, k) * iMatrix.getElemAt(k, j);
+                }
+                result_vector.push_back(sum);
+            }
+        }
+    }
+    ChessMatrix mul(result_vector);
+    return mul;
+}
 
 
