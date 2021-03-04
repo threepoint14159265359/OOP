@@ -11,7 +11,7 @@ class Menu
         int printMenu() const;
         void add();
         void multiply();
-        void getElem() const;
+        void getElem();
         void print();
         void loadTest();
         ChessMatrix m_output;

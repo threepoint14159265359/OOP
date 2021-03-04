@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1614287499 source:/home/izhar/Documents/University/OOP/lab3/PriorityQueue/main.cpp
+	<iostream>
+	<read.hpp>
+
+1551119206 /home/izhar/Documents/University/OOP/lab3/PriorityQueue/include/read.hpp
+	<iostream>
+	<string>
+
