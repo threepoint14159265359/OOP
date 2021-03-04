@@ -195,6 +195,13 @@ std::ostream& operator<<(std::ostream& Stream,const ChessMatrix& iMatrix)
 
 //addition(+)
 ChessMatrix ChessMatrix::operator+(ChessMatrix& iMatrix){
+    if(not(this->isChessTypeMatrix()) || not(iMatrix.isChessTypeMatrix())){
+        throw ERRORS::NOT_A_CHESS_TYPE;
+    }
+
+    if(this->getSize() != iMatrix.getSize()){
+        throw ERRORS::NOT_EQUAL_SIZE;
+    }
     std::vector<int> sum_vector; //an empty matrix
     for(unsigned int i = 0; i<iMatrix.m_vector.size(); i++){
         sum_vector.push_back(this->m_vector.at(i) + iMatrix.m_vector.at(i));

@@ -1,17 +1,22 @@
 #include <iostream>
 #include "ChessMatrix.h"
+#include "menu.h"
 using namespace std;
 
 int main()
 {
-    ChessMatrix m2("matrix.txt");
-    //ChessMatrix m1("matrix.txt");
-    //ChessMatrix m3(-2);
-    //ChessMatrix m4(2);
-    cout << m2.getElemAt(0,1) << endl;
-    cout << m2+m2 << endl;
-    cout << m2*m2 << endl;
-
+Menu test;
+test.run();
+//    std::string file;
+//    cin >> file;
+//    ChessMatrix m(file);
+//    cout << m << endl;
+    //cout << m;
+//     ChessMatrix m1;
+//     ChessMatrix m(2);
+//     ChessMatrix m2(2);
+//     m1 = m1 + m2;
+//     cout << m;
 
 
     return 0;
