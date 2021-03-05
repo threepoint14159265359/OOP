@@ -2,6 +2,12 @@
 #define MENU_H_INCLUDED
 #include "ChessMatrix.h"
 
+
+/**
+    @uthor: Hussain Izhar
+    Taks: Assignment 1, Object Oriented Programming - Spring 2021
+**/
+
 class Menu
 {
     public:

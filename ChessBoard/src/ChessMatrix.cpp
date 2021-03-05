@@ -1,6 +1,12 @@
 #include "ChessMatrix.h"
 
 
+/**
+    @uthor: Hussain Izhar
+    Taks: Assignment 1, Object Oriented Programming - Spring 2021
+**/
+
+
 //default
 ChessMatrix::ChessMatrix(){
     m_size = 0;
@@ -175,6 +181,19 @@ ChessMatrix ChessMatrix::multiply(const ChessMatrix& a,const ChessMatrix& b)
     return mul;
 }
 
+
+
+bool ChessMatrix::isEqual(const ChessMatrix &a, const ChessMatrix &b){
+    if(a.getSize() != b.getSize()){
+        return false;
+    }
+    for(unsigned int i = 0; i<a.m_vector.size(); i++){
+        if(a.m_vector[i] != b.m_vector[i]){
+            return false;
+        }
+    }
+    return true;
+}
 
 //Some Operator Overloading
 //outPutStream(<<)

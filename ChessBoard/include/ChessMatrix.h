@@ -6,6 +6,12 @@
 #include <string>
 #include <math.h>
 
+/**
+    @uthor: Hussain Izhar
+    Taks: Assignment 1, Object Oriented Programming - Spring 2021
+**/
+
+
 class ChessMatrix
 {
 public:
@@ -18,9 +24,11 @@ public:
     int getElemAt(unsigned int i, unsigned int j)const; //getting element at index i and j
     unsigned int getSize()const;
     void setChessMatrix(const std::vector<int> &ivector);
+    static bool isEqual(const ChessMatrix &a, const ChessMatrix &b);
     static bool nonZeroSquares(unsigned int i, unsigned int j);
     static ChessMatrix multiply(const ChessMatrix& A, const ChessMatrix& B);
     static ChessMatrix add(const ChessMatrix& A, const ChessMatrix& B);
+
 
     //operator overloading
     ChessMatrix operator*(ChessMatrix& iMatrix);

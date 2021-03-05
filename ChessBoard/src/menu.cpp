@@ -4,6 +4,13 @@
 #include <sstream>
 #define menudb 5
 
+
+/**
+    @uthor: Hussain Izhar
+    Taks: Assignment 1, Object Oriented Programming - Spring 2021
+**/
+
+
 using namespace std;
 
 inline bool getElemCheck(int a){return a>=0;}
