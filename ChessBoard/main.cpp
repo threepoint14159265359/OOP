@@ -4,7 +4,7 @@
 
 /**
     @uthor: Hussain Izhar
-    Taks: Assignment 1, Object Oriented Programming - Spring 2021
+    Task: Assignment 1, Object Oriented Programming - Spring 2021
 **/
 
 
