@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1616096019 source:/home/izhar/Desktop/CustomEnor/main.cpp
+	<iostream>
+
+1616102224 source:/home/izhar/Documents/University/OOP/CustomEnor/main.cpp
+	"fileenor.h"
+	<iostream>
+
+1616102266 /home/izhar/Documents/University/OOP/CustomEnor/include/fileenor.h
+	<fstream>
+
+1616102158 source:/home/izhar/Documents/University/OOP/CustomEnor/src/fileenor.cpp
+	"fileenor.h"
+
