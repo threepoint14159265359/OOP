@@ -9,7 +9,7 @@
 
 
 
-//#define NORMAL_MODE
+#define NORMAL_MODE
 #ifdef NORMAL_MODE
 
 using namespace std;
