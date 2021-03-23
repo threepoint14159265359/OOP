@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1616460932 source:/home/izhar/Documents/University/OOP/even_numbers/main.cpp
+	<iostream>
+	"fileenor.h"
+
+1616459606 source:/home/izhar/Documents/University/OOP/even_numbers/src/fileenor.cpp
+	"fileenor.h"
+
+1616459622 /home/izhar/Documents/University/OOP/even_numbers/include/fileenor.h
+	<fstream>
+
