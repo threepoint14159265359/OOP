@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1616948101 source:/home/izhar/Documents/University/OOP/angling_championship/main.cpp
+	<iostream>
+	"contest.h"
+
+1616943472 source:/home/izhar/Documents/University/OOP/angling_championship/src/angler.cpp
+	"angler.h"
+
+1616943016 /home/izhar/Documents/University/OOP/angling_championship/include/angler.h
+
+1616947548 source:/home/izhar/Documents/University/OOP/angling_championship/src/contest.cpp
+	"contest.h"
+	<iostream>
+
+1616947261 /home/izhar/Documents/University/OOP/angling_championship/include/contest.h
+	<string>
+	<fstream>
+	<sstream>
+
