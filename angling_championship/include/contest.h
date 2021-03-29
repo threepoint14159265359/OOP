@@ -15,10 +15,10 @@ struct contest_data{
 
 
 
-class contest
-{
+class contest{
     public:
         enum errors{corrupt_file};
+        contest(){}
         contest(const std::string &filename);
 
         void first(){next();}

@@ -34,10 +34,18 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/angler.h" />
 		<Unit filename="include/contest.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/angler.cpp" />
 		<Unit filename="src/contest.cpp" />
+		<Unit filename="t0.txt" />
 		<Unit filename="t7.txt" />
+		<Unit filename="tt2.txt" />
+		<Unit filename="tt3.txt" />
+		<Unit filename="tt4.txt" />
+		<Unit filename="tt5.txt" />
+		<Unit filename="tt6.txt" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

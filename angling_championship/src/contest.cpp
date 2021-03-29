@@ -10,15 +10,12 @@ contest::contest(const std::string &filename){
 }
 
 
-
-
-
 void contest::next(){
     std::string line;
     std::getline(_file, line, '\n');
-    if(!(m_end = _file.fail())){
+    m_current.counter= 0;
+    if(!(m_end = _file.fail() || line == "")){
         std::istringstream is(line);
-        m_current.counter= 0;
         is >> m_current.angler_name >> m_current.contest_id;
         std::string fish;
         int size;
