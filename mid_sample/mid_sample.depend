@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1617913852 source:/home/izhar/Downloads/OOP/sMple_mid_2/mid_sample/src/line_iter.cpp
+	"line_iter.h"
+
+1617910916 /home/izhar/Downloads/OOP/sMple_mid_2/mid_sample/include/line_iter.h
+	<string>
+	<sstream>
+	<fstream>
+
+1617913278 source:/home/izhar/Downloads/OOP/sMple_mid_2/mid_sample/main.cpp
+	<iostream>
+	"line_iter.h"
+	"group_iter.h"
+
+1617911970 /home/izhar/Downloads/OOP/sMple_mid_2/mid_sample/include/group_iter.h
+	"line_iter.h"
+
+1617913961 source:/home/izhar/Downloads/OOP/sMple_mid_2/mid_sample/src/group_iter.cpp
+	"group_iter.h"
+

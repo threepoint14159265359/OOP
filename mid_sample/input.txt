@@ -1,0 +1,5 @@
+2020 HACM Pascal 42 Java 38 C++ 82 Fortran 4 Python 12
+2020 AMCP Pascal 42 Java 38 C++ 82 Fortran 4 Python 12
+2021 AMCP Pascal 42 Java 38 C++ 82 Fortran 4 Python 12
+2021 AMCP Pascal 42 Java 38 C++ 82 Fortran 4 Python 12
+2022 AMCP Pascal 42 Java 38 C++ 82 Fortran 12 Python 12
