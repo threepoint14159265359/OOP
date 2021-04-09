@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1617959730 source:/home/izhar/Downloads/OOP/mid_term_exam/midExam/src/line_iter.cpp
+	"line_iter.h"
+
+1617959504 /home/izhar/Downloads/OOP/mid_term_exam/midExam/include/line_iter.h
+	<string>
+	<sstream>
+	<fstream>
+
+1617961889 source:/home/izhar/Downloads/OOP/mid_term_exam/midExam/main.cpp
+	<iostream>
+	"line_iter.h"
+	"group_iter.h"
+
+1617961812 source:/home/izhar/Downloads/OOP/mid_term_exam/midExam/src/group_iter.cpp
+	"group_iter.h"
+
+1617959959 /home/izhar/Downloads/OOP/mid_term_exam/midExam/include/group_iter.h
+	"line_iter.h"
+
