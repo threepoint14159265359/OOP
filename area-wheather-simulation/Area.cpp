@@ -1,7 +1,6 @@
 #include "Area.h"
 
 
-
 Area::Area(const std::string& type, const std::string& owner, int level){
     if( level < 0){throw ERRORS::negative_water_level;}
     area_type = type; 
@@ -10,34 +9,87 @@ Area::Area(const std::string& type, const std::string& owner, int level){
 }
 
 
-//If the amount of the stored water is greater than 15 km3, the plain area changes into grassland
-void Plain::changeArea(Area* &area){
-    if(water_level > PLAIN_GROSSLAND_CHANGE){
-        area->setAreaType("Grassland");
-    }
-}
-
-//The area becomes lakes region obtaining amount of water over 50 km3, whereas in case the amount of stored water goes below 16 km3, the area changes to plain.
-void Grassland::changeArea(Area* &area){
-    if(water_level < GRASSLAND_PLAIN_CHANGE){
-        area->setAreaType("Plain");
-    } 
-    if(water_level > GRASSLAND_LAKE_CHANGE){
-        area->setAreaType("Lake");
-    }
-}
-
-
-//Beyond an amount of water of 51 km3, the area changes into grassland. <- We have a type in this section (It should be "BELOW", but it's "beyond")
-void Lake::changeArea(Area* &area){
-    if(water_level < LAKES_GRASSLAND_CHANGE){
-        area->setAreaType("Grassland");
-    }
-}
-
-
-
 
 /**
- * NOTE: Class area just changes the area based on the amount of water it has. While reading data from the file, the amount of water would be given.
- **/
+ * NOTE: Area is changed for different Area types 
+ */
+Area* Plain::changeArea(){
+    if(water_level > PLAIN_GRASSLAND_CHANGE){
+        return new Plain("Grassland", this->getAreaOwner() , water_level);
+    }
+    return new Plain("Plain",this->getAreaOwner() , water_level);
+}
+
+
+Area* Grassland::changeArea(){
+    if(water_level < GRASSLAND_PLAIN_CHANGE){
+        return new Plain("Plain",this->getAreaOwner() , water_level);
+    } 
+    if(water_level > GRASSLAND_LAKE_CHANGE){
+        return new Lake("Lake", this->getAreaOwner() , water_level);
+    }
+    return new Plain("Grassland", this->getAreaOwner() , water_level);
+}
+
+Area* Lake::changeArea(){
+    if(water_level < LAKES_GRASSLAND_CHANGE){
+        return new Plain("Grassland", this->getAreaOwner() , water_level);
+    }
+    return new Lake("Lake", this->getAreaOwner() , water_level);
+}
+
+
+
+
+//CHANGE AREA HUMIDITY AND WATER LEVEL IN ALL AREAS (OVERRIDING SIGLE VIRTUAL METHOD)
+
+void Plain::changeWaterLevelAreaHumidity(Weather* season){
+    if( season->getWeatherType() == "Sunny"){
+        water_level -= PLAIN_SUNNY_WATER_LEVEL_DIFF; //decrease
+    }
+
+    if( season->getWeatherType() == "Cloudy"){
+        water_level -= PLAIN_CLOUDY_WATER_LEVEL_DIFF; //decrease
+    }
+
+    if( season->getWeatherType() == "Rainy"){
+        water_level += PLAIN_RAINY_WATER_LEVEL_DIFF; //increase
+    }
+    //change Humidity
+    //season->setHumidity(season->getAirHumidity() + PLAIN_HUMIDITY_RAISE);
+}
+
+
+void Grassland::changeWaterLevelAreaHumidity(Weather* season){
+    if( season->getWeatherType() == "Sunny"){
+        water_level -= GRASSLAND_SUNNY_WATER_LEVEL_DIFF; //decrease
+    }
+
+    if( season->getWeatherType() == "Cloudy"){
+        water_level -= GRASSLAND_CLOUDY_WATER_LEVEL_DIFF; //decrease
+    }
+
+    if( season->getWeatherType() == "Rainy"){
+        water_level += GRASSLAND_RAINY_WATER_LEVEL_DIFF; //increase
+    }
+    //changeHumidity
+    //season->setHumidity(season->getAirHumidity() + GRASSLAND_HUMIDITY_RAISE);
+}
+
+void Lake::changeWaterLevelAreaHumidity(Weather* season){
+    if( season->getWeatherType() == "Sunny"){
+        water_level -= LAKES_SUNNY_WATER_LEVEL_DIFF; //decrease 
+    }
+
+    if( season->getWeatherType() == "Cloudy"){
+        water_level -= LAKES_CLOUDY_WATER_LEVEL_DIFF; //decrease
+    }
+
+    if( season->getWeatherType() == "Rainy"){
+        water_level += LAKES_RANIY_WATER_LEVEL_DIFF; //increase
+    }
+    //change Humidity
+    //season->setHumidity(season->getAirHumidity() + LAKES_HUMIDITY_RAISE);
+}
+
+

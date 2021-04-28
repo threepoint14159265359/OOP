@@ -7,15 +7,14 @@
 using std::cout; 
 using std::endl;
 
-void simulate(const std::string& filename, std::vector<Area*>& areas, std::vector<Weather*>& weathers){
+
+
+void CreateAreas(const std::string& filename, std::vector<Area*>& areas, std::vector<Weather*>& weathers){
     std::ifstream file(filename);
+    if(file.fail()) { cout << "Wrong file name!\n"; exit(1);}    
     Area* type;
-    std::string grassland = "Grassland";
-    std::string lake = "Lake";
-    std::string plain = "Plain"; 
-    if(file.fail()) { cout << "Wrong file name!\n"; exit(1);}                                            
-    std::string Mr, AreaOwner; 
-    int numberOfAreas, waterLevel, Humidity; 
+    std::string grassland = "Grassland", lake = "Lake", plain = "Plain", Mr, AreaOwner; 
+    int numberOfAreas, waterLevel, input_humdidity; 
     char letter;
     file >> numberOfAreas; 
     try{
@@ -35,23 +34,45 @@ void simulate(const std::string& filename, std::vector<Area*>& areas, std::vecto
     }catch(Area::ERRORS e){
         cout << "ERROR! the water level can't be negative!" << endl;
     }
-    file >> Humidity;
-    Weather aux(Humidity);
-    Weather* weather = aux.determinWeather();
-    weathers.push_back(weather);
-    for(auto a: areas){
-        
-    }
+    file >> input_humdidity;
+    Weather* weather, *res;
+    res = weather->ChangeWeather(input_humdidity);
+    weathers.push_back(res);
 }
+
+void simulate(const std::string& filename, std::vector<Area*>& areas, std::vector<Weather*>& weathers){
+    CreateAreas(filename, areas, weathers);  
+    for(auto a: areas){
+        cout << "Mr. " << a->getAreaOwner() << " " << a->getAreaType() << " " << a->getWaterLevel() << endl;
+    }
+    cout << "Season: " << weathers.at(0)->getWeatherType() << " " << weathers.at(0)->getAirHumidity() << endl; 
+    for(int i = 0; i<areas.size(); i++){
+        Weather* currentWeather = weathers.at(i);
+        //change water and humidity
+        areas.at(i)->changeWaterLevelAreaHumidity(currentWeather);
+
+        //change Weather 
+        currentWeather = currentWeather->ChangeWeather(weathers.at(i)->getAirHumidity());
+        //push it to the vector 
+
+        weathers.push_back(currentWeather);
+
+        //chnage area 
+        areas.at(i)->changeArea();
+
+
+        cout << "Mr. " << areas.at(i)->getAreaOwner() << " " << areas.at(i)->getAreaType() << " " << areas.at(i)->getWaterLevel() << endl << endl;
+        cout << "Season: " << weathers.at(i+1)->getWeatherType() << " " << weathers.at(i+1)->getAirHumidity() << endl; 
+    }    
+
+     
+}
+
+
 
 int main(){
     std::vector<Area*> ground;
-    std::vector<Weather*> season;
-    simulate("input.txt",ground,season);
-    for(int i = 0; i<ground.size(); i++){
-        cout << ground.at(i)->getAreaOwner() << " "<< ground.at(i)->getAreaType() << " " << ground.at(i)->getWaterLevel() << endl;
-    }
-
-    cout << endl;
-    cout << season.at(0)->getHumidity();
+    std::vector<Weather*> weathers; 
+    simulate("input.txt", ground, weathers);
+    return 0;
 }

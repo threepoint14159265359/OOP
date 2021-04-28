@@ -1,9 +1,12 @@
 #ifndef AREA_H
 #define AREA_H
 
+#include <iostream>
+#include "Weather.h"
 #include "constants.h"
 #include <string>
 
+class Weather; 
 class Sunny;
 class Cloudy; 
 class Rainy;
@@ -34,18 +37,20 @@ public:
     //setters
     void setAreaType(const std::string& area){area_type = area;}
     void setAreaOwner(const std::string& owner){area_owner = owner;}
-    void setWaterLevel(int level){water_level = level;}
-
+    void setWaterLevel(int level){water_level += level;}
+    
     //gonna use it in Weather class; providing a negative parameter, to decrease the level 
-    void changerWaterLevel(int level){water_level += level;}
+
 
     //virtual methods
-    virtual void changeArea(Area* &area) = 0;
+    virtual Area* changeArea() = 0;
+    virtual void changeWaterLevelAreaHumidity(Weather* season) = 0;
+
 
 
 protected:   
     std::string area_type, area_owner; 
-    size_t water_level; 
+    size_t water_level;
 };
 
 
@@ -56,7 +61,9 @@ public:
     Plain(const std::string& area, const std::string& owner, int waterlevel = 0): Area(area, owner, waterlevel){}
 
     //virtual function override
-    void changeArea(Area* &area) override; 
+    Area* changeArea() override; 
+    void changeWaterLevelAreaHumidity(Weather* season) override;
+    
 };
 
 class Grassland: public Area{
@@ -65,9 +72,9 @@ public:
 
     //constructor
     Grassland(const std::string& area, const std::string& owner, int waterlevel = 0): Area(area, owner, waterlevel){}
-
-    //virtual method override
-    void changeArea(Area* &area) override;
+    Area* changeArea() override;
+    void changeWaterLevelAreaHumidity(Weather* season) override;
+     
 };
 
 class Lake: public Area{
@@ -78,7 +85,8 @@ public:
     Lake(const std::string& area, const std::string& owner, int waterlevel = 0): Area(area, owner, waterlevel){}
 
     //virtual method override
-    void changeArea(Area* &area) override; 
+    Area* changeArea() override; 
+    void changeWaterLevelAreaHumidity(Weather* season) override;
 };
 
 
