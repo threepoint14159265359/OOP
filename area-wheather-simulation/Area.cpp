@@ -16,34 +16,40 @@ Area::Area(const std::string& type, const std::string& owner, int level){
 Area* Plain::changeArea(){
     if(water_level > PLAIN_GRASSLAND_CHANGE){
         return new Plain("Grassland", this->getAreaOwner() , water_level);
+    }else{
+        return new Plain("Plain",this->getAreaOwner() , water_level);
     }
-    return new Plain("Plain",this->getAreaOwner() , water_level);
 }
 
 
 Area* Grassland::changeArea(){
     if(water_level < GRASSLAND_PLAIN_CHANGE){
         return new Plain("Plain",this->getAreaOwner() , water_level);
-    } 
-    if(water_level > GRASSLAND_LAKE_CHANGE){
+    }else if(water_level > GRASSLAND_LAKE_CHANGE){
         return new Lake("Lake", this->getAreaOwner() , water_level);
+    }else {
+        return new Plain("Grassland", this->getAreaOwner() , water_level);
     }
-    return new Plain("Grassland", this->getAreaOwner() , water_level);
 }
 
 Area* Lake::changeArea(){
     if(water_level < LAKES_GRASSLAND_CHANGE){
         return new Plain("Grassland", this->getAreaOwner() , water_level);
+    }else{
+        return new Lake("Lake", this->getAreaOwner() , water_level);
     }
-    return new Lake("Lake", this->getAreaOwner() , water_level);
 }
 
 
 
 
-//CHANGE AREA HUMIDITY AND WATER LEVEL IN ALL AREAS (OVERRIDING SIGLE VIRTUAL METHOD)
+/**
+ *  Change Water Level based on the given Season
+ *  - Every ground/area has a water level and a season, and based on that season we would change the water level in each simulation round
+ *  - For instance if the ground is plain and the season is Sunny, we could decrease the water level by PLAIN_SUNNY_WATER_LEVEL_DIFF amount
+ */
 
-void Plain::changeWaterLevelAreaHumidity(Weather* season){
+void Plain::changeWaterLevel(Weather* season){
     if( season->getWeatherType() == "Sunny"){
         water_level -= PLAIN_SUNNY_WATER_LEVEL_DIFF; //decrease
     }
@@ -55,12 +61,11 @@ void Plain::changeWaterLevelAreaHumidity(Weather* season){
     if( season->getWeatherType() == "Rainy"){
         water_level += PLAIN_RAINY_WATER_LEVEL_DIFF; //increase
     }
-    //change Humidity
-    //season->setHumidity(season->getAirHumidity() + PLAIN_HUMIDITY_RAISE);
+    
 }
 
 
-void Grassland::changeWaterLevelAreaHumidity(Weather* season){
+void Grassland::changeWaterLevel(Weather* season){
     if( season->getWeatherType() == "Sunny"){
         water_level -= GRASSLAND_SUNNY_WATER_LEVEL_DIFF; //decrease
     }
@@ -72,11 +77,9 @@ void Grassland::changeWaterLevelAreaHumidity(Weather* season){
     if( season->getWeatherType() == "Rainy"){
         water_level += GRASSLAND_RAINY_WATER_LEVEL_DIFF; //increase
     }
-    //changeHumidity
-    //season->setHumidity(season->getAirHumidity() + GRASSLAND_HUMIDITY_RAISE);
 }
 
-void Lake::changeWaterLevelAreaHumidity(Weather* season){
+void Lake::changeWaterLevel(Weather* season){
     if( season->getWeatherType() == "Sunny"){
         water_level -= LAKES_SUNNY_WATER_LEVEL_DIFF; //decrease 
     }
@@ -88,8 +91,7 @@ void Lake::changeWaterLevelAreaHumidity(Weather* season){
     if( season->getWeatherType() == "Rainy"){
         water_level += LAKES_RANIY_WATER_LEVEL_DIFF; //increase
     }
-    //change Humidity
-    //season->setHumidity(season->getAirHumidity() + LAKES_HUMIDITY_RAISE);
+    
 }
 
 

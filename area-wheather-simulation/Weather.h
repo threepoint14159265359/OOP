@@ -26,9 +26,9 @@ public:
     std::string getWeatherType(){return weatherType;}
     int getAirHumidity(){return air_humidity;}
 
-
     //member functions
-    Weather* ChangeWeather(int humid);
+    void ChangeWeather(int humid);
+    void changeAirHumidity(Area* area);
 
 protected:
     std::string weatherType;

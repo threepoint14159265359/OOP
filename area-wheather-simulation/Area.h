@@ -44,13 +44,13 @@ public:
 
     //virtual methods
     virtual Area* changeArea() = 0;
-    virtual void changeWaterLevelAreaHumidity(Weather* season) = 0;
+    virtual void changeWaterLevel(Weather* season) = 0;
 
 
 
 protected:   
     std::string area_type, area_owner; 
-    size_t water_level;
+    int water_level;
 };
 
 
@@ -62,7 +62,7 @@ public:
 
     //virtual function override
     Area* changeArea() override; 
-    void changeWaterLevelAreaHumidity(Weather* season) override;
+    void changeWaterLevel(Weather* season) override;
     
 };
 
@@ -73,7 +73,7 @@ public:
     //constructor
     Grassland(const std::string& area, const std::string& owner, int waterlevel = 0): Area(area, owner, waterlevel){}
     Area* changeArea() override;
-    void changeWaterLevelAreaHumidity(Weather* season) override;
+    void changeWaterLevel(Weather* season) override;
      
 };
 
@@ -86,7 +86,7 @@ public:
 
     //virtual method override
     Area* changeArea() override; 
-    void changeWaterLevelAreaHumidity(Weather* season) override;
+    void changeWaterLevel(Weather* season) override;
 };
 
 
