@@ -8,6 +8,10 @@ using std::cout;
 using std::endl;
 
 
+struct areaWeatherContainer{
+    Area* area; 
+    Weather* weather;
+};
 
 void CreateAreas(const std::string& filename, std::vector<Area*>& areas, int &humidity){
     std::ifstream file(filename);
@@ -22,14 +26,12 @@ void CreateAreas(const std::string& filename, std::vector<Area*>& areas, int &hu
             file >> Mr >> AreaOwner >> letter >> waterLevel; 
             if( letter == 'G'){
                 type = new Grassland(grassland, AreaOwner, waterLevel);
-                areas.push_back(type);
             }else if (letter  == 'P'){
                 type = new Plain(plain, AreaOwner, waterLevel);
-                areas.push_back(type);
             }else{
                 type = new Lake(lake, AreaOwner, waterLevel);
-                areas.push_back(type);
             }
+            areas.push_back(type);
         }  
     }catch(Area::ERRORS e){
         cout << "ERROR! the water level can't be negative!" << endl;
@@ -38,40 +40,38 @@ void CreateAreas(const std::string& filename, std::vector<Area*>& areas, int &hu
 }
 
 void simulate(const std::string& filename, std::vector<Area*>& areas, Weather* &weather, int &humidity){
-    CreateAreas(filename, areas, humidity); 
+    CreateAreas(filename, areas, humidity);  
+    weather->setHumidity(humidity);
 
+    for(int i = 0; i<20; i++){
+        try{
+        for (int j = 0; j < areas.size(); j++){
 
-    //setting up our first weather
-    weather->ChangeWeather(humidity);
-    //printitng first weather
-    cout << "Season: " << weather->getWeatherType() << " " << weather->getAirHumidity() << endl; 
-    
+            //debug change water level #perfectly normal
+            areas.at(j)->changeWaterLevel(weather);
 
-    for(int i = 0; i< 40; i++){
-        for (auto a: areas){
-            try{
-                //debug change the area #perfectly normal
-                a = a->changeArea();
+            //debug change humidity #perfectly normal
+            //cout << weather->getAirHumidity() << endl;
+            weather->changeAirHumidity(areas.at(j));
+            //cout << weather->getAirHumidity() << endl;
 
-                //debug change humidity #perfectly normal
-                weather->changeAirHumidity(a);
+            //debug change season #pefectly normal 
+            weather->ChangeWeather(weather->getAirHumidity());
 
-                //debug change season #pefectly normal 
-                weather->ChangeWeather(weather->getAirHumidity()); 
-
-                //debug change water level #perfectly normal
-                a->changeWaterLevel(weather);
-
-
-                cout << "Mr. " << a->getAreaOwner() << " " << a->getAreaType() << " " << a->getWaterLevel() << endl;
-            }
-            catch(...){
-                cout << "Water level can't be negative" << endl;
-                exit(1); 
-            }
+            //debug change the area #perfectly normal
+            areas[j] = areas.at(j)->changeArea();
+            
+            
+             
+            //cout << "Mr. " << areas.at(j)->getAreaOwner() << " " << areas.at(j)->getAreaType() << " " << areas.at(j)->getWaterLevel() << endl;
         }
-        cout << endl << weather->getWeatherType() << " " << weather->getAirHumidity() << endl;
+        //cout << endl << weather->getWeatherType() << " " << weather->getAirHumidity() << endl;
+    }catch(...){
+        cout << "Water level can't be negative" << endl;
+        exit(1); 
     }
+    }
+        
 }
 
 
@@ -83,3 +83,7 @@ int main(){
     simulate("input.txt", ground, weather, humidity);
     return 0;
 }
+
+
+
+
