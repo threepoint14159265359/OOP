@@ -14,29 +14,29 @@ Area::Area(const std::string& type, const std::string& owner, int level){
  * NOTE: Area is changed for different Area types 
  */
 Area* Plain::changeArea(){
-    if(water_level > PLAIN_GRASSLAND_CHANGE){
-        return new Plain("Grassland", this->getAreaOwner() , water_level);
+    if(this->water_level > PLAIN_GRASSLAND_CHANGE){
+        return new Grassland("Grassland", this->getAreaOwner() , this->water_level);
     }else{
-        return new Plain("Plain",this->getAreaOwner() , water_level);
+        return new Plain("Plain",this->getAreaOwner() , this->water_level);
     }
 }
 
 
 Area* Grassland::changeArea(){
-    if(water_level < GRASSLAND_PLAIN_CHANGE){
-        return new Plain("Plain",this->getAreaOwner() , water_level);
-    }else if(water_level > GRASSLAND_LAKE_CHANGE){
-        return new Lake("Lake", this->getAreaOwner() , water_level);
-    }else {
-        return new Plain("Grassland", this->getAreaOwner() , water_level);
+    if(this->water_level < GRASSLAND_PLAIN_CHANGE){
+        return new Plain("Plain",this->getAreaOwner() , this->water_level);
     }
+    if(this->water_level > GRASSLAND_LAKE_CHANGE){
+        return new Lake("Lake", this->getAreaOwner() , this->water_level);
+    }
+    return new Grassland("Grassland", this->getAreaOwner() , this->water_level);
 }
 
 Area* Lake::changeArea(){
-    if(water_level < LAKES_GRASSLAND_CHANGE){
-        return new Plain("Grassland", this->getAreaOwner() , water_level);
+    if(this->water_level < LAKES_GRASSLAND_CHANGE){
+        return new Grassland("Grassland", this->getAreaOwner() , this->water_level);
     }else{
-        return new Lake("Lake", this->getAreaOwner() , water_level);
+        return new Lake("Lake", this->getAreaOwner() , this->water_level);
     }
 }
 

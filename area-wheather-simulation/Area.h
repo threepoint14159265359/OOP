@@ -2,14 +2,14 @@
 #define AREA_H
 
 #include <iostream>
-#include "Weather.h"
 #include "constants.h"
 #include <string>
+#include "Weather.h"
 
-class Weather; 
 class Sunny;
 class Cloudy; 
 class Rainy;
+class Weather; 
 
 
 /**
@@ -50,7 +50,7 @@ public:
 
 protected:   
     std::string area_type, area_owner; 
-    int water_level;
+    int water_level; 
 };
 
 

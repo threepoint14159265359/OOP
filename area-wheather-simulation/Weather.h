@@ -1,14 +1,13 @@
 #ifndef WEATHER_H
 #define WEATHER_H
 
-#include "Area.h" //already has imported constants.h
 #include <string>
+#include "Area.h" //already has imported constants.h
 
-
-class Area;
-class Plain;
-class Rainy; 
-class Cloudy;
+class Area; 
+class Plain; 
+class Grassland; 
+class Lake; 
 
 
 class Weather
@@ -16,11 +15,13 @@ class Weather
 
 public:   
     //constructor
+    Weather(){}
     Weather(const std::string& weathertype, int humid){weatherType = weathertype; air_humidity = humid;}
     
 
     //setters
     void setHumidity(int humidity){air_humidity = humidity;}
+    void setType(const std::string& type){weatherType = type;}
 
     //getters
     std::string getWeatherType(){return weatherType;}
